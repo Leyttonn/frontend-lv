@@ -15,5 +15,23 @@ export default function Api(){
         }
     });
 
+    // interceptores
+    api.interceptors.response.use(
+        (response) => {
+            return response;
+        },
+        (error) => {
+            // interceptor --- error de auth (401)
+            if(error.response?.status === 401){
+                localStorage.removeItem("access_token")
+                location.href = "/auth/login"
+            }
+
+            // error de auth (403) permisos denegados
+
+            // error de auth (500)
+        }
+    )
+
     return api;
 }
